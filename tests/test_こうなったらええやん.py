@@ -7,9 +7,9 @@ from dataclasses import dataclass
 class 判定屋さん:
 
     def これって軽減税率ですか(self, item: 商品) -> bool:
-        if item.hinmoku.name == '酒類':
+        if item.hinmoku == 品目('酒類'):
             return False
-        if item.hinmoku.name == '食料品':
+        if item.hinmoku == 品目('食料品'):
             return True
 
         # あてはまらなかったら、軽減税率対象外
@@ -28,21 +28,21 @@ class 商品:
 
 
 class Testこうなったらええやん:
-    def test_なにかの商品を指定して軽減税率の対象かどうかを判定できる(self):
+    def test_からあげ棒を指定して軽減税率の対象である(self):
         sut = 判定屋さん()
 
         item_からあげ棒 = 商品(name='からあげ棒', hinmoku=品目('食料品'))
 
         assert sut.これって軽減税率ですか(item_からあげ棒) is True
 
-    def test_ストロングゼロを指定して軽減税率の対象でないことがわかること(self):
+    def test_ストロングゼロを指定して軽減税率の対象でない(self):
         sut = 判定屋さん()
 
         item_ストロングゼロ = 商品(name='ストロングゼロ', hinmoku=品目('酒類'))
 
         assert sut.これって軽減税率ですか(item_ストロングゼロ) is False
 
-    def test_医薬部外品を指定して軽減税率の対象でないことがわかること(self):
+    def test_リポビタンDを指定して軽減税率の対象でない(self):
         sut = 判定屋さん()
 
         item_リポビタンD = 商品(name='リポビタンD', hinmoku=品目('医薬部外品'))
